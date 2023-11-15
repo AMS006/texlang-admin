@@ -1,0 +1,45 @@
+html,body,#root,main{
+  height: 100%;
+}
+main{
+  background-image: url('./assets/bg1.png');
+}
+#root{
+  display: flex;
+  flex-direction: column;
+}
+a.active,a.active:hover{
+  background-color:#3b82f6;
+  color:white;
+}
+
+.transition-height{
+  transition: height 0.5s ease-in-out;
+}
+
+.slide-pane__content {
+  padding: 18px 16px !important;
+}
+.ReactModalPortal{
+  display: none !important;
+}
+@media (max-width: 1024px) {
+  .ReactModalPortal {
+    display: flex !important;
+  }
+}
+@page {
+  size: auto; /* Let the browser determine the page size */
+  margin-top: 1em; /* Set margins as needed */
+  counter-increment: none; /* Disable page numbering */
+}
+
+/* Hide URL at the bottom */
+@page :first {
+  margin-bottom: 0; /* Set the margin-bottom to 0 on the first page */
+}
+@media print {
+  .no-print {
+    display: none;
+  }
+}
