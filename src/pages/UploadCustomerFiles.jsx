@@ -11,6 +11,7 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { setCompanyUsers } from '../redux/reducers/company'
 import { setUserProjects } from '../redux/reducers/project'
+import TableLoader from '../components/Loader/Table'
 
 
 const UploadCustomerFiles = () => {
@@ -110,7 +111,7 @@ const UploadCustomerFiles = () => {
             for (let i = 0; i < fileData.length; i++) {
                 await axios({
                     method: 'POST',
-                    url: 'http://localhost:4000/api/megdapAdmin/work/uploadCustomerFile',
+                    url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/work/uploadCustomerFile`,
                     data: fileData[i]
                 })
             }
@@ -124,7 +125,7 @@ const UploadCustomerFiles = () => {
             if (totalLength === fileData.length) {
                 await axios({
                     method: "PUT",
-                    url: "http://localhost:4000/api/megdapAdmin/project/updateStatus",
+                    url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/project/updateStatus`,
                     data: { projectId: project }
                 })
             }
@@ -159,8 +160,8 @@ const UploadCustomerFiles = () => {
             </div>
             {projectName && <div className='px-6 py-8'>
                 <div className='border shadow bg-[#fcf8e3]'>
-                    <h2 className='font-semibold bg-gray-300 px-2.5 py-1.5'>{projectName}</h2>
-                    {loading ? <p className='px-2.5 py-1.5'>Loading...</p> :
+                    <h2 className='font-semibold bg-gray-300 px-2.5 py-1.5'>ProjectName: {projectName}</h2>
+                    {loading ? <div className='w-full py-2.5'><TableLoader /></div> :
                         <div className='flex flex-col gap-4 px-2.5 py-1.5 '>
                             {uploadProjectWorks && uploadProjectWorks.length > 0 ? uploadProjectWorks.map((work, index) => (
                                 <div key={work?.id} className='flex flex-col gap-4 '>

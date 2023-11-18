@@ -46,7 +46,7 @@ const AddNewUser = () => {
             setLoading(true)
             await axios({
                 method: "POST",
-                url: "http://localhost:4000/api/megdapadmin/user/add",
+                url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/user/add`,
                 data: { ...data, companyName },
             })
             toast.success('User Added')

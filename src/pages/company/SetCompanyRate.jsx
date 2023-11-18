@@ -74,7 +74,7 @@ const SetCompanyRate = () => {
         try {
             await axios({
                 method: "PUT",
-                url: "http://localhost:4000/api/megdapAdmin/company/setLanguageRate",
+                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/company/setLanguageRate`,
                 data
             })
             setLoading(false)

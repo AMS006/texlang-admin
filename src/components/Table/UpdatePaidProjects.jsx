@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { setPaymentPendingProjects } from '../../redux/reducers/project';
+import TableLoader from '../Loader/Table';
 
 const UpdatePaidProjectsTable = () => {
     const [paymentUpdating, setPaymentUpdating] = useState(false)
@@ -39,7 +40,7 @@ const UpdatePaidProjectsTable = () => {
         try {
             await axios({
                 method: "PUT",
-                url: "http://localhost:4000/api/megdapAdmin/project/updatePaymentStatus",
+                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/project/updatePaymentStatus`,
                 data: { projects: filteredRow }
             })
             toast.success('Payment Status Updated Successfully')
@@ -93,7 +94,7 @@ const UpdatePaidProjectsTable = () => {
                 </table>
             </div>
             <div className='py-2.5'>
-                <button onClick={handlePaymentUpdate} disabled={paymentUpdating} className={`px-2.5 py-1.5 bg-blue-500  text-white ${paymentUpdating ? 'bg-opacity-60' : 'hover:bg-blue-600'}`}>{paymentUpdating ? 'Updating...' : 'Update Payment Status'}</button>
+                <button onClick={handlePaymentUpdate} disabled={paymentUpdating} className={`px-2.5 py-1.5 bg-blue-500  text-white ${paymentUpdating ? 'bg-opacity-60' : 'hover:bg-blue-600'}`}>{paymentUpdating ? <TableLoader /> : 'Update Payment Status'}</button>
             </div>
         </>
     );

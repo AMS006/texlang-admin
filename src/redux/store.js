@@ -4,6 +4,7 @@ import companyReducer from "./reducers/company";
 import projectReducer from "./reducers/project";
 import workReducer from "./reducers/work";
 import invoiceReducer from "./reducers/invoice";
+import translatorReducer from "./reducers/translator";
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         user: userReducer,
         project: projectReducer,
         work: workReducer,
-        invoice: invoiceReducer
+        invoice: invoiceReducer,
+        translator:translatorReducer,
     }
 });
 

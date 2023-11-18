@@ -28,6 +28,12 @@ a.active,a.active:hover{
     display: flex !important;
   }
 }
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
 @page {
   size: auto; /* Let the browser determine the page size */
   margin-top: 1em; /* Set margins as needed */
@@ -37,9 +43,4 @@ a.active,a.active:hover{
 /* Hide URL at the bottom */
 @page :first {
   margin-bottom: 0; /* Set the margin-bottom to 0 on the first page */
-}
-@media print {
-  .no-print {
-    display: none;
-  }
 }

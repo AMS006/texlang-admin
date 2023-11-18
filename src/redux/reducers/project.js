@@ -33,5 +33,11 @@ const projectSlice = createSlice({
     },
 });
 
-export const { projectRequest, setUserProjects, setPaymentPendingProjects,clearPaymentPendingProjects,setError } = projectSlice.actions;
+export const { 
+    projectRequest, 
+    setUserProjects, 
+    setPaymentPendingProjects,
+    clearPaymentPendingProjects,
+    setError 
+} = projectSlice.actions;
 export default projectSlice.reducer;

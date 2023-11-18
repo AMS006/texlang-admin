@@ -1,7 +1,7 @@
 import axios from "axios";
 import { logoutUser } from "./user";
 import { setHeaders } from "../../helper";
-import { invoiceRequest, setApproveInvoiceWorks, setError, setGenerateInvoiceWorks, setSelectedInvoice } from "../reducers/invoice";
+import { invoiceRequest, setAllInvoicesStatus, setApproveInvoiceWorks, setError, setGenerateInvoiceWorks, setSelectedInvoice } from "../reducers/invoice";
 
 export const getGenerateInvoiceWorks = (companyId,start_date,end_date) => async(dispatch) =>{
     try {
@@ -10,7 +10,7 @@ export const getGenerateInvoiceWorks = (companyId,start_date,end_date) => async(
         dispatch(invoiceRequest())
         const res = await axios({
             method: "GET",
-            url: `http://localhost:4000/api/megdapadmin/invoice/generateInvoiceWorks?companyId=${companyId}&start_date=${start_date}&end_date=${end_date}`,
+            url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/invoice/generateInvoiceWorks?companyId=${companyId}&start_date=${start_date}&end_date=${end_date}`,
         })
         const works = res.data.works;
         
@@ -34,7 +34,7 @@ export const getApproveInvoiceWorks = () => async(dispatch) =>{
 
         const invoices = await axios({
             method:"GET",
-            url:`http://localhost:4000/api/megdapadmin/invoice/approvePending`
+            url:`${import.meta.env.VITE_API_URL}/api/megdapadmin/invoice/approvePending`
         });
         const works = invoices.data.invoices;
         dispatch(setApproveInvoiceWorks(works));
@@ -56,11 +56,33 @@ export const getInvoiceDetails = (invoiceId) => async(dispatch) =>{
 
         const invoice = await axios({
             method:"GET",
-            url:`http://localhost:4000/api/megdapadmin/invoice/invoiceDetails/${invoiceId}`
+            url:`${import.meta.env.VITE_API_URL}/api/megdapadmin/invoice/invoiceDetails/${invoiceId}`
         });
 
         const invoiceDetails = invoice.data.invoiceDetails;
         dispatch(setSelectedInvoice(invoiceDetails));
+    } catch (error) {
+        const statusCode = error?.response?.status;
+        if(statusCode === 401){
+            dispatch(logoutUser())
+        }
+        else{
+            dispatch(setError(error?.response?.data?.message));
+        }
+    }
+}
+
+export const getAllInvoicesStatus = () => async(dispatch) =>{
+    try {
+        setHeaders();
+        dispatch(invoiceRequest());
+
+        const invoices = await axios({
+            method:"GET",
+            url:`${import.meta.env.VITE_API_URL}/api/megdapadmin/invoice/allInvoices`
+        });
+        const works = invoices.data.invoices;
+        dispatch(setAllInvoicesStatus(works));
     } catch (error) {
         const statusCode = error?.response?.status;
         if(statusCode === 401){

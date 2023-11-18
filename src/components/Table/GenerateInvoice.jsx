@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generateInvoiceTableColumn } from '../../data/columns';
 import './style.css'
 import { setGenerateInvoiceWorks } from '../../redux/reducers/invoice';
+import TableLoader from '../Loader/Table';
 
 
 const GenerateInvoiceTable = () => {
@@ -54,7 +55,7 @@ const GenerateInvoiceTable = () => {
         try {
             await axios({
                 method: "POST",
-                url: "http://localhost:4000/api/megdapAdmin/invoice/generate",
+                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/invoice/generate`,
                 data: { works: invoiceData }
             })
             toast.success('Invoice Generated Successfully')
@@ -100,7 +101,7 @@ const GenerateInvoiceTable = () => {
                         <tbody>
                             <tr>
                                 <td colSpan={generateInvoiceTableColumn.length} className="text-center py-1.5 border w-full">
-                                    {loading ? 'Loading...' : 'No Records Found'}
+                                    {loading ? <TableLoader /> : 'No Records Found'}
                                 </td>
                             </tr>
                         </tbody>

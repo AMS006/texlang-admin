@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getApproveInvoiceWorks } from '../../redux/actions/invoice';
 import ApproveInvoiceTable from '../../components/Table/ApproveInvoice';
+import FullScreenLoader from '../../components/Loader/FullScreen';
 
 const ApproveInvoices = () => {
     const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const ApproveInvoices = () => {
     }, [dispatch]);
 
     if (loading)
-        return <p>Loading...</p>
+        return <FullScreenLoader />;
     return (
         <div className='px-6'>
             <h1 className='text-2xl text-center py-4 font-semibold font-sans'>Invoices For Approval</h1>

@@ -67,5 +67,17 @@ const workSlice = createSlice({
     },
 });
 
-export const { workRequest,updateUserWorks,setUploadedWorks,setCompanyBillingWorks, setDownloadProjectWork,clearDownloadProjectWoks,setUploadProjectWork,clearUploadProjectWoks,setWorksForUpdate,clearWorksForUpdate, setError } = workSlice.actions;
+export const { 
+   workRequest,
+    setDownloadProjectWork,
+    setUploadProjectWork,
+    setWorksForUpdate,
+    setUploadedWorks,
+    setCompanyBillingWorks,
+    updateUserWorks,
+    clearWorksForUpdate,
+    clearDownloadProjectWoks,
+    clearUploadProjectWoks,
+    setError,
+} = workSlice.actions;
 export default workSlice.reducer;

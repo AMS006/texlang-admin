@@ -106,18 +106,18 @@ const Navbar = () => {
 
     return (
         <div className='flex justify-between items-center px-4 p-2 no-print shadow-xl  border-b bg-[#f8f8f8]'>
-            <div>
+            <div className='no-print'>
                 <img src={logo} alt="TexLang" />
             </div>
             <NavbarLg />
             <NavbarSm open={navbarOpen} setOpen={setNavbarOpen} />
 
-            <div className='flex items-center gap-1.5'>
-                <button className='bg-blue-700 px-2.5 py-1.5 text-white rounded font-semibold hover:bg-opacity-90' onClick={handleLogout}>
+            <div className='flex items-center gap-1.5 no-print'>
+                <button className='bg-blue-700 px-2.5 py-1.5 text-white no-print rounded font-semibold hover:bg-opacity-90' onClick={handleLogout}>
                     Logout
                 </button>
-                <button className='lg:hidden block'>
-                    <FaBars size={24} onClick={() => setNavbarOpen((prev) => !prev)} />
+                <button className='lg:hidden block no-print'>
+                    <FaBars size={24} onClick={() => setNavbarOpen((prev) => !prev)} className='no-print' />
                 </button>
             </div>
         </div>

@@ -1,12 +1,13 @@
 .table{
     width: 100%;
 }
+th{
+    max-width: 4rem !important;
+}
 tr,th,td{
     border: 1px solid #ddd;
 }
-th{
-    max-width: 2.5rem !important;
-}
+
 td{
     text-align: center;
     padding:8px;

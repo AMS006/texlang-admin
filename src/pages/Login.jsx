@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 import { clearError, setUser } from '../redux/reducers/user'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import FullScreenLoader from '../components/Loader/FullScreen'
 
 const formSchema = yup.object({
     userName: yup.string().required('UserName is required'),
@@ -30,7 +31,7 @@ const Login = () => {
             setIsSigning(true)
             const res = await axios({
                 method: "POST",
-                url: "http://localhost:4000/api/megdapadmin/user/login",
+                url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/user/login`,
                 data,
             })
             setIsSigning(false)
@@ -54,7 +55,7 @@ const Login = () => {
         dispatch(clearError())
     }
     if (loading)
-        return <p>Loading...</p>
+        return <FullScreenLoader />
     return (
         <div className='flex flex-col gap-2.5 justify-center items-center h-full bg-blue-50'>
             <div>

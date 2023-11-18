@@ -4,6 +4,7 @@ const initialState = {
     loading:false,
     generateInvoiceWorks:[],
     approveInvoiceWorks:[],
+    allInvoicesStatus:[],
     selectedInvoice:null,
     error:null
 }
@@ -24,6 +25,26 @@ const invoiceSlice = createSlice({
             state.loading = false;
             state.approveInvoiceWorks = action.payload;
         },
+        setAllInvoicesStatus:(state,action)=>{
+            state.loading = false;
+            state.allInvoicesStatus = action.payload;
+        },
+        setSelectedInvoice : (state,action) =>{
+            state.loading = false;
+            state.selectedInvoice = action.payload;
+        },
+        updateInvoiceStatus:(state,action)=>{
+           
+            const currentStatus = current(state.allInvoicesStatus);
+         
+            const updatedInvoices = currentStatus.map((invoice)=>{
+                if(invoice.id === action.payload.id){
+                    return {...invoice,status:action.payload.status}
+                }
+                return invoice;
+            });    
+            state.allInvoicesStatus = updatedInvoices;
+        },
         updateApprovedInvoiceWorks:(state,action)=>{
             const set = [...new Set(action.payload.map((work)=>work.id))];
             state.loading = false;
@@ -33,10 +54,6 @@ const invoiceSlice = createSlice({
                     return work;
             })
         },
-        setSelectedInvoice : (state,action) =>{
-            state.loading = false;
-            state.selectedInvoice = action.payload;
-        },
         setError:(state,action)=>{
             state.loading = false;
             state.error = action.payload;
@@ -45,5 +62,14 @@ const invoiceSlice = createSlice({
     }
 });
 
-export const {invoiceRequest,setGenerateInvoiceWorks,setApproveInvoiceWorks,setSelectedInvoice,updateApprovedInvoiceWorks,setError} = invoiceSlice.actions;
+export const {
+    invoiceRequest,
+    setGenerateInvoiceWorks,
+    setApproveInvoiceWorks,
+    setAllInvoicesStatus,
+    setSelectedInvoice,
+    updateInvoiceStatus,
+    updateApprovedInvoiceWorks,
+    setError
+} = invoiceSlice.actions;
 export default invoiceSlice.reducer;

@@ -7,7 +7,7 @@ export const loginUser = (data) => async(dispatch) => {
         dispatch(userRequest())
         const res = await axios({
             method: "POST",
-            url: "http://localhost:4000/api/megdapadmin/user/login",
+            url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/user/login`,
             data,
         })
         localStorage.setItem('authToken', res.data.token)
@@ -26,13 +26,12 @@ export const getUser = () => async (dispatch) => {
         setHeaders();
         const res = await axios({
             method: "GET",
-            url: "http://localhost:4000/api/megdapadmin/user",
+            url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/user`,
             
         })
         dispatch(setUser(res?.data?.user));
     } catch (error) {
-        localStorage.removeItem('authToken')
-        dispatch(setUser(null));
+        dispatch(logoutUser())
     }
 }
 

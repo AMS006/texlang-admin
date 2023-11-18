@@ -7,6 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../../components/common/Input'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { addCompany } from '../../redux/reducers/company'
 
 const formSchema = yup.object({
     country: yup.string().required('Country is required'),
@@ -43,6 +45,7 @@ const AddCompany = () => {
 
     const [countryOptions, setCountryOptions] = React.useState([])
     const [loading, setLoading] = React.useState(false)
+    const dispatch = useDispatch();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(formSchema)
@@ -59,11 +62,13 @@ const AddCompany = () => {
     const formSubmit = async (data) => {
         setLoading(true)
         try {
-            await axios({
+            const res = await axios({
                 method: "POST",
-                url: "http://localhost:4000/api/megdapadmin/company/add",
+                url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/company/add`,
                 data,
             })
+            const companyData = res.data.companyData
+            dispatch(addCompany(companyData))
             setLoading(false)
             toast.success('Company Added Successfully')
             reset()

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { approvePendingInvoiceColumn } from '../../data/columns';
 import './style.css'
+import TableLoader from '../Loader/Table';
 
 
 const ApproveInvoiceTable = () => {
@@ -59,7 +60,7 @@ const ApproveInvoiceTable = () => {
                         <tbody>
                             <tr>
                                 <td colSpan={approvePendingInvoiceColumn.length} className="text-center py-1.5 border w-full">
-                                    {loading ? 'Loading...' : 'No Records Found'}
+                                    {loading ? <TableLoader /> : 'No Records Found'}
                                 </td>
                             </tr>
                         </tbody>

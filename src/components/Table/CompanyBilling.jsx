@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { companyBillingColumn } from '../../data/columns';
 import './style.css'
+import TableLoader from '../Loader/Table';
 
 
 const CompanyBillingTable = () => {
@@ -55,7 +56,7 @@ const CompanyBillingTable = () => {
                     <tbody>
                         <tr>
                             <td colSpan={companyBillingColumn.length} className="text-center py-1.5 border w-full">
-                                {loading ? 'Loading...' : 'No Records Found'}
+                                {loading ? <TableLoader /> : 'No Records Found'}
                             </td>
                         </tr>
                     </tbody>

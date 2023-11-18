@@ -4,6 +4,7 @@ import { useTable } from 'react-table';
 import { paymentPendingProjectColumn } from '../../data/columns';
 import './style.css'
 import { useSelector } from 'react-redux';
+import TableLoader from '../Loader/Table';
 
 
 const PaymentPendingProjectTable = () => {
@@ -55,7 +56,7 @@ const PaymentPendingProjectTable = () => {
                     <tbody>
                         <tr>
                             <td colSpan={paymentPendingProjectColumn.length} className="text-center py-1.5 border w-full">
-                                {loading ? 'Loading...' : 'No Records Found'}
+                                {loading ? <TableLoader /> : 'No Records Found'}
                             </td>
                         </tr>
                     </tbody>

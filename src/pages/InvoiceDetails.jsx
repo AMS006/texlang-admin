@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import megdapLogo from '../assets/megdapLogo.svg'
 import InvoiceNotFound from './NotFound/InvoiceNotFound'
@@ -9,27 +9,26 @@ import { companyBankDetails, companyDetails } from '../data/constants'
 import InvoiceServiceTable from '../components/Table/InvoiceService'
 import TaxDetailTable from '../components/Table/TaxDetail'
 import { numberToWords } from '../helper'
+import FullScreenLoader from '../components/Loader/FullScreen'
 
-const InvoicePage = () => {
+const InvoiceDetailsPage = () => {
     const { selectedInvoice, loading, error } = useSelector((state) => state.invoice)
-    const [approvingInvoice, setApprovingInvoice] = useState(false)
     const { id } = useParams();
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         if (id)
             dispatch(getInvoiceDetails(id));
+
     }, [id, dispatch])
 
     if (loading)
-        return <p>Loading...</p>
+        return <FullScreenLoader />
 
     if (!selectedInvoice && !loading && error)
         return <InvoiceNotFound />
 
-    const handleApproveInvoice = () => {
-
-    }
     return (
         <div className='px-6 py-8 font-sans  bg-white'>
             <div className='flex justify-between items-center py-4'>
@@ -107,13 +106,13 @@ const InvoicePage = () => {
                     </ul>
                 </div>
             </div>
-            <div className='flex flex-col gap-4  w-full'>
+            <div className='flex flex-col gap-6  w-full'>
                 <InvoiceServiceTable />
                 <div className='flex  gap-4  items-start w-full'>
                     <TaxDetailTable />
                     <div className='flex flex-col gap-0'>
                         <div>
-                            <span className='font-semibold'>Sub - Total Amount :</span>
+                            <span className='font-semibold'>Total Amount :</span>
                             <span>{selectedInvoice?.amount}</span>
                         </div>
                         <div>
@@ -146,11 +145,14 @@ const InvoicePage = () => {
                     <h5 className='font-semibold'>Authorised Signatory</h5>
                 </div>
             </div>
-            <div className='no-print'>
-                <button disabled={approvingInvoice} onClick={handleApproveInvoice} className={`bg-blue-500 text-white px-2.5 py-1.5 ${approvingInvoice ? 'opacity-60' : 'hover:bg-blue-600'}`}>{approvingInvoice ? 'Approving...' : 'Approve Invoice'}</button>
+            <div>
+                <div className='flex gap-2.5 no-print'>
+                    <button onClick={() => window.print()} className='bg-blue-500 text-white px-2.5 py-1.5 hover:bg-blue-600 no-print'>Print Details</button>
+                </div>
+
             </div>
         </div>
     )
 }
 
-export default InvoicePage
+export default InvoiceDetailsPage

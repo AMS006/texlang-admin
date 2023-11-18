@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { updateWorksColumn } from '../../data/columns';
 import './style.css'
+import TableLoader from '../Loader/Table';
 
 
 const UpdateWorkTable = () => {
@@ -55,7 +56,7 @@ const UpdateWorkTable = () => {
                     <tbody>
                         <tr>
                             <td colSpan={updateWorksColumn.length} className="text-center py-1.5 border w-full">
-                                {loading ? 'Loading...' : 'No Records Found'}
+                                {loading ? <TableLoader /> : 'No Records Found'}
                             </td>
                         </tr>
                     </tbody>

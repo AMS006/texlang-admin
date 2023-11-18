@@ -15,8 +15,8 @@ const formSchema = yup.object({
     contact: yup.string().required('Contact is required'),
     languages: yup.array().of(
         yup.object().shape({
-            sourceLang: yup.string().required('Source Language is required'),
-            targetLang: yup.string().required('Target Language is required'),
+            sourceLanguage: yup.string().required('Source Language is required'),
+            targetLanguage: yup.string().required('Target Language is required'),
         })
     ),
 })
@@ -33,7 +33,7 @@ const AddNewTranslator = () => {
     const addLanguage = () => {
         const currentLanguages = getValues('languages');
         if (currentLanguages.length < 10) {
-            setValue('languages', [...currentLanguages, { sourceLang: '', targetLang: '', unitRate: '' }]);
+            setValue('languages', [...currentLanguages, { sourceLanguage: '', targetLanguage: '' }]);
             setFormKey(formKey + 1);
         }
     };
@@ -52,7 +52,7 @@ const AddNewTranslator = () => {
         try {
             await axios({
                 method: 'POST',
-                url: 'http://localhost:4000/api/megdapAdmin/translator/add',
+                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/translator/add`,
                 data
             })
             toast.success('Translator Added Successfully')
@@ -83,8 +83,8 @@ const AddNewTranslator = () => {
                     <div className='flex flex-col gap-2.5 py-4'>
                         {getValues('languages').map((data, idx) => (
                             <div key={idx} className='flex md:flex-row flex-col gap-4 items-center'>
-                                <LangSelect label='Source Language' placeholder='Enter Source Language' control={control} name={`languages[${idx}].sourceLang`} errorMessage={errors.languages && errors.languages[idx]?.sourceLang?.message} />
-                                <LangSelect label='Target Language' placeholder='Enter Target Language' control={control} name={`languages[${idx}].targetLang`} errorMessage={errors.languages && errors.languages[idx]?.targetLang?.message} />
+                                <LangSelect label='Source Language' placeholder='Enter Source Language' control={control} name={`languages[${idx}].sourceLanguage`} errorMessage={errors.languages && errors.languages[idx]?.sourceLanguage?.message} />
+                                <LangSelect label='Target Language' placeholder='Enter Target Language' control={control} name={`languages[${idx}].targetLanguage`} errorMessage={errors.languages && errors.languages[idx]?.targetLanguage?.message} />
 
                                 {idx === 0 && <button type='button' onClick={addLanguage} className='bg-blue-500 text-white px-2.5 py-1.5 w-64 hover:bg-blue-600'>Add Language</button>}
                                 {idx > 0 && (

@@ -3,6 +3,8 @@ import UpdateWorkButton from "../components/common/UpdateWorkButton"
 import UploadButton from "../components/common/UploadButton"
 import CheckBox from "../components/common/CheckBox"
 import { Link } from "react-router-dom"
+import Invoice from "../redux/reducers/invoice"
+import InvoiceCancelButton from "../components/common/InvoiceCancelButton"
 
 export const downloadFilesColumns = [
     {
@@ -287,7 +289,7 @@ export const approvePendingInvoiceColumn = [
         Header: "Invoice No.",
         accessor: "invoiceNumber",
         Cell: (info) => {
-            return <Link to={`/Enterprise/invoice/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
+            return <Link to={`/Enterprise/InvoiceApprove/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
         }
     },
     {
@@ -370,3 +372,43 @@ export const invoiceTaxDetailColumn = [
         accessor: "totalTaxAmount",
     },
 ];
+
+export const allInvoicesStatusColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "Invoice No.",
+        accessor: "invoiceNumber",
+        Cell: (info) => {
+            return <Link to={`/Enterprise/InvoiceDetails/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
+        }
+    },
+    {
+        Header: "Invoice Date",
+        accessor: "createdAt",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "Company Name",
+        accessor: "companyName"
+    },
+    {
+        Header: "Status",
+        accessor: "status",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Cancel",
+        accessor: "id",
+        Cell: (info) => {
+            if (info.row.original.status === 'Pending' || info.row.original.status === 'Approved')
+                return <InvoiceCancelButton id={info.value} />
+        }
+    }
+]

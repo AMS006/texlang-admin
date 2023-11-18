@@ -15,7 +15,7 @@ const UpdateWorkModal = ({ open, setOpen, work }) => {
         try {
             await axios({
                 method: 'PUT',
-                url: 'http://localhost:4000/api/megdapAdmin/work/updateUserWork',
+                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/work/updateUserWork`,
                 data: {
                     id: work.id,
                     cost,
