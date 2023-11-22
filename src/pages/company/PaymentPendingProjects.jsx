@@ -3,7 +3,7 @@ import { useState } from 'react';
 import SelectControl from '../../components/Select/SelectControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCompanies } from '../../redux/actions/company';
-import DateRange from '../../components/common/DateRangePicker';
+import DateRange from '../../components/common/DateRange';
 import { getPaymentPendingProjects } from '../../redux/actions/project';
 import PaymentPendingProjectTable from '../../components/Table/PaymentPendingProject';
 import { clearPaymentPendingProjects } from '../../redux/reducers/project';
@@ -61,7 +61,7 @@ const PaymentPendingProjects = () => {
                 <SelectControl options={companyOptions} label='Company' value={company} onChange={setCompany} />
                 <DateRange value={dateRange} setValue={setDateRange} />
             </div>
-           
+
             <SubmitButton loading={loading} handleSubmit={handleSubmit} type='button' loadingText='Loading...' />
             <div className='py-4'>
                 <h2 className='font-semibold py-1.5 px-2.5 bg-blue-400 text-white'>Company Name : {companyName}</h2>

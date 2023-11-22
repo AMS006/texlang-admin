@@ -1,7 +1,7 @@
 import axios from "axios";
 import { setHeaders } from "../../helper";
 import { logoutUser } from "./user";
-import { companyRequest, setCompanies, setCompanyUsers, setError } from "../reducers/company";
+import { companyRequest, setCompanies, setCompanyUsers, setContractDetails, setError } from "../reducers/company";
 
 export const getAllCompanies = () => async (dispatch) => {
     try {
@@ -32,6 +32,28 @@ export const getCompanyUsers = (companyId) => async (dispatch) => {
             
         })
         dispatch(setCompanyUsers(res?.data?.users));
+    } catch (error) {
+        const statusCode = error?.response?.status;
+        if(statusCode === 401){
+            dispatch(logoutUser())
+        }
+        else{
+            dispatch(setError(error?.response?.data?.message));
+        }
+    }
+}
+
+export const getCompanyContractDetails = (companyId) => async (dispatch) => {
+    try {
+        setHeaders();
+        dispatch(companyRequest());
+
+        const res = await axios({
+            method: "GET",
+            url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/company/contractDetails/${companyId}`,
+        })
+        console.log(res)
+        dispatch(setContractDetails(res?.data?.contractDetails));
     } catch (error) {
         const statusCode = error?.response?.status;
         if(statusCode === 401){

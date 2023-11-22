@@ -27,6 +27,10 @@ import DownloadFiles from './pages/DownloadFiles';
 import InvoiceApprovePage from './pages/InvoiceApprove';
 import InvoiceDetailsPage from './pages/InvoiceDetails';
 import './App.css';
+import CARoute from './components/common/CARoute';
+import ApprovePendingInvoices from './pages/companyAdmin/ApprovePendingInvoices';
+import ApproveInvoiceDetails from './pages/companyAdmin/ApproveInvoiceDetails';
+import InvoiceToSendDetails from './pages/InvoiceToSendDetails';
 
 function App() {
   const [mounted, setMounted] = useState(false);
@@ -59,7 +63,7 @@ function App() {
           <Route path='PaymentPendingProjects' element={<PaymentPendingProjects />} />
           <Route path='CompanyBilling' element={<CompanyBilling />} />
           <Route path='GenerateInvoices' element={<GenerateInvoices />} />
-          <Route path='Invoices' element={<Invoices />} />
+          {/* <Route path='Invoices' element={<Invoices />} /> */}
           <Route path='InvoicesStatus' element={<InvoicesStatus />} />
           <Route path='ApproveInvoices' element={<ApproveInvoices />} />
           <Route path='RenewExtendContract' element={<RenewExtendContract />} />
@@ -71,6 +75,12 @@ function App() {
           <Route path='ReAssignTranslator' element={<ReAssignTranlator />} />
           <Route path='InvoiceDetails/:id' element={<InvoiceDetailsPage />} />
           <Route path='InvoiceApprove/:id' element={<InvoiceApprovePage />} />
+          <Route path="InvoiceToSendDetails/:id" element={<InvoiceToSendDetails />} />
+        </Route>
+
+        <Route path="Invoice" element={<CARoute />}>
+          <Route path="ApprovePendingInvoices" element={<ApprovePendingInvoices />} />
+          <Route path="InvoiceDetails/:id" element={<ApproveInvoiceDetails />} />
         </Route>
       </Routes>
     </>

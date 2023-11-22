@@ -5,7 +5,7 @@ import Layout from './Layout'
 import FullScreenLoader from '../Loader/FullScreen'
 import { Roles } from '../../data/constants'
 
-const PrivateRoute = () => {
+const CARoute = () => {
 
     const { user, loading } = useSelector((state) => state.user);
     if (loading) {
@@ -16,10 +16,10 @@ const PrivateRoute = () => {
         return <Navigate to="/" />;
     }
 
-    if (user && user.role !== Roles.MEGDAP_ADMIN)
+    if (user && user.role !== Roles.COMPANY_ADMIN)
         return <Navigate to="/" />;
 
     return <Outlet />;
 }
 
-export default Layout(PrivateRoute)
+export default Layout(CARoute)

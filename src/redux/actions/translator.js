@@ -55,3 +55,6 @@ export const getTranslators = (sourceLanguage,targetLanguage) => async(dispatch)
         dispatch(setTranslators([]))
     }
 }
+
+export const getAllTranslators = () => async(dispatch) =>{
+}

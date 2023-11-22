@@ -1,7 +1,8 @@
 import axios from "axios";
 import { logoutUser } from "./user";
 import { setHeaders } from "../../helper";
-import { invoiceRequest, setAllInvoicesStatus, setApproveInvoiceWorks, setError, setGenerateInvoiceWorks, setSelectedInvoice } from "../reducers/invoice";
+import { invoiceRequest, setAllInvoicesStatus, setApproveInvoiceWorks, setApprovePendingInvoices, setError, setGenerateInvoiceWorks, setInvoicesToSend, setSelectedInvoice } from "../reducers/invoice";
+import { set } from "date-fns";
 
 export const getGenerateInvoiceWorks = (companyId,start_date,end_date) => async(dispatch) =>{
     try {
@@ -83,6 +84,48 @@ export const getAllInvoicesStatus = () => async(dispatch) =>{
         });
         const works = invoices.data.invoices;
         dispatch(setAllInvoicesStatus(works));
+    } catch (error) {
+        const statusCode = error?.response?.status;
+        if(statusCode === 401){
+            dispatch(logoutUser())
+        }
+        else{
+            dispatch(setError(error?.response?.data?.message));
+        }
+    }
+}
+
+export const getApprovePendingInvoices = () => async(dispatch) =>{
+    try {
+        setHeaders();
+        dispatch(invoiceRequest());
+        const res = await axios({
+            method:"GET",
+            url:`${import.meta.env.VITE_API_URL}/api/companyAdmin/invoice/approvePending`
+        })
+        const invoices = res.data.invoices;
+        dispatch(setApprovePendingInvoices(invoices));
+    } catch (error) {
+        const statusCode = error?.response?.status;
+        if(statusCode === 401){
+            dispatch(logoutUser())
+        }
+        else{
+            dispatch(setError(error?.response?.data?.message));
+        }
+    }
+}
+
+export const getInvoicesToSend = () => async(dispatch) =>{
+    try {
+        setHeaders();
+        dispatch(invoiceRequest());
+        const res = await axios({
+            method:"GET",
+            url:`${import.meta.env.VITE_API_URL}/api/megdapAdmin/invoice/toSend`
+        });
+        const invoices = res.data.invoices;
+        dispatch(setInvoicesToSend(invoices));
     } catch (error) {
         const statusCode = error?.response?.status;
         if(statusCode === 401){

@@ -5,6 +5,7 @@ const initialState = {
     sourceLanguages: [],
     targetLanguages: [],
     translators:[],
+    translatorDetails:[]
 }
 
 const translatorReducer = createSlice({
@@ -19,11 +20,17 @@ const translatorReducer = createSlice({
             state.sourceLanguages = action.payload;
         },
         setTargetLanguages: (state, action) => {
+            state.loading = false;
             state.targetLanguages = action.payload;
         },
         setTranslators: (state, action) => {
+            state.loading = false;
             state.translators = action.payload;
         },
+        setTranslatorsDetails: (state, action) => {
+            state.loading = false;
+            state.translatorDetails = action.payload;
+        }
     }
 })
 
@@ -31,7 +38,8 @@ export const {
     sourceLanguageRequest,
     setSourceLanguages,
     setTargetLanguages,
-    setTranslators
+    setTranslators,
+    setTranslatorsDetails
 } = translatorReducer.actions
 
 export default translatorReducer.reducer

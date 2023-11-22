@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import logo from '../../assets/logo.png'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../redux/actions/user'
 import { NavLink } from 'react-router-dom'
 import { BsChevronDown } from 'react-icons/bs'
 import { FaBars } from 'react-icons/fa'
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
+import { Roles } from '../../data/constants'
 
 const companyNavbarData = [
     { name: 'Add New Company', link: '/Enterprise/EnterpriseRegistration' },
@@ -19,7 +20,7 @@ const companyNavbarData = [
     { name: 'Generate Invoices', link: '/Enterprise/GenerateInvoices' },
     { name: 'Approve Invoices', link: '/Enterprise/ApproveInvoices' },
     { name: 'Show Invoices to Send', link: '/Enterprise/ShowInvoicesToSend' },
-    { name: 'Invoices', link: '/Enterprise/Invoices' },
+    // { name: 'Invoices', link: '/Enterprise/Invoices' },
     { name: 'Invoices Status', link: '/Enterprise/InvoicesStatus' }
 ]
 const translatorNavbarData = [
@@ -86,7 +87,7 @@ const NavbarLg = () => {
                     <span>Translator</span>
                     <BsChevronDown />
                 </div>
-                <div className={`${translatorNavbarOpen ? 'flex' : 'hidden'} flex-col gap-1.5 absolute z-20 top-[26px] -left-4 bg-white shadow border px-2.5 py-1.5 p-1.5 min-w-[240px]`}>
+                <div className={`${translatorNavbarOpen ? 'flex' : 'hidden'} flex-col gap-1.5 absolute z-20 top-[24px] -left-4 bg-white shadow border px-2.5 py-1.5 p-1.5 min-w-[240px]`}>
                     {translatorNavbarData.map((item, index) => (
                         <NavLink key={index} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link}>{item.name}</NavLink>
                     ))}
@@ -97,8 +98,9 @@ const NavbarLg = () => {
     )
 }
 const Navbar = () => {
-    const [navbarOpen, setNavbarOpen] = useState(false)
-    const dispatch = useDispatch()
+    const [navbarOpen, setNavbarOpen] = useState(false);
+    const { user } = useSelector(state => state.user);
+    const dispatch = useDispatch();
 
     const handleLogout = () => {
         dispatch(logoutUser())
@@ -109,9 +111,16 @@ const Navbar = () => {
             <div className='no-print'>
                 <img src={logo} alt="TexLang" />
             </div>
-            <NavbarLg />
-            <NavbarSm open={navbarOpen} setOpen={setNavbarOpen} />
-
+            {user?.role === Roles.MEGDAP_ADMIN &&
+                <>
+                    <NavbarLg />
+                    <NavbarSm open={navbarOpen} setOpen={setNavbarOpen} />
+                </>}
+            {user?.role === Roles.COMPANY_ADMIN &&
+                <nav className='flex'>
+                    <NavLink to={'/Invoice/ApprovePendingInvoices'} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded font-semibold'>Approve Pending Invoices</NavLink>
+                </nav>
+            }
             <div className='flex items-center gap-1.5 no-print'>
                 <button className='bg-blue-700 px-2.5 py-1.5 text-white no-print rounded font-semibold hover:bg-opacity-90' onClick={handleLogout}>
                     Logout

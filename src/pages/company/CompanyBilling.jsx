@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import SelectControl from '../../components/Select/SelectControl'
-import DateRange from '../../components/common/DateRangePicker'
+import DateRange from '../../components/common/DateRange'
 import { getWorksForCompanyBilling } from '../../redux/actions/work'
 import { setCompanyBillingWorks } from '../../redux/reducers/work'
 import { getAllCompanies } from '../../redux/actions/company'

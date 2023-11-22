@@ -1,7 +1,7 @@
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useState } from 'react'
 const Input = ({ label, id, type, placeholder, register, errorMessage }) => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
     return (
         <div className='flex flex-col gap-0 w-full'>
             {label && <label htmlFor={id} className="font-semibold select-none">{label}</label>}

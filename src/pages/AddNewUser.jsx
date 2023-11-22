@@ -76,7 +76,7 @@ const AddNewUser = () => {
                         <Input type={'email'} placeholder={'Enter Email'} label={'Email'} id={'email'} register={{ ...register('email') }} errorMessage={errors.email?.message} />
                         <Input type={'password'} placeholder={'Enter Password'} label={'Password'} id={'password'} register={{ ...register('password') }} errorMessage={errors.password?.message} />
                         <div className='flex gap-2.5'>
-                            <label htmlFor="admin" className='font-semibold select-none'>Is Admin</label>
+                            <label htmlFor="admin" className='font-semibold select-none'>Is CA</label>
                             <input type='checkbox' {...register('isAdmin')} id='admin' className='w-12' />
                         </div>
                     </div>

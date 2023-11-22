@@ -10,3 +10,9 @@ export const companyBankDetails = {
     ifscCode:"HDFC0001039",
     pan:"AAJCM8621K"
 }
+
+export const Roles = {
+    MEGDAP_ADMIN:"megdapAdmin",
+    COMPANY_ADMIN:"companyAdmin",
+    ADMIN:"admin",
+}

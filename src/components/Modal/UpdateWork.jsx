@@ -47,11 +47,11 @@ const UpdateWorkModal = ({ open, setOpen, work }) => {
                         <h1 className='bg-yellow-500 text-white text-lg px-2.5 py-1.5 text-start'>Update Work</h1>
                         <div className='flex flex-col gap-2.5 px-2.5 py-4 select-none'>
                             <div className='flex  gap-2'>
-                                <label for="cost" className='w-[40%] text-start'>Cost:</label>
+                                <label htmlFor="cost" className='w-[40%] text-start'>Cost:</label>
                                 <input type="text" required value={cost} onChange={(e) => setCost(e.target.value)} id="fname" className='border p-1 border-black focus:outline-blue-500' />
                             </div>
                             <div className='flex gap-2'>
-                                <label for="lname" className='w-[40%] text-start'>Word Count: </label>
+                                <label htmlFor="lname" className='w-[40%] text-start'>Word Count: </label>
                                 <input type="text" required value={wordCount} onChange={(e) => setWordCount(e.target.value)} id="lname" className='border p-1 border-black focus:outline-blue-500' />
                             </div>
 

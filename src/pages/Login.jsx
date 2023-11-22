@@ -11,6 +11,7 @@ import { clearError, setUser } from '../redux/reducers/user'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FullScreenLoader from '../components/Loader/FullScreen'
+import { Roles } from '../data/constants'
 
 const formSchema = yup.object({
     userName: yup.string().required('UserName is required'),
@@ -45,8 +46,10 @@ const Login = () => {
     }
     const navigate = useNavigate()
     useEffect(() => {
-        if (user)
+        if (user && user.role === Roles.MEGDAP_ADMIN)
             navigate('/Enterprise/EnterpriseRegistration')
+        else if (user && user.role === Roles.COMPANY_ADMIN)
+            navigate('/Invoice/ApprovePendingInvoices')
     }, [user, navigate])
 
 

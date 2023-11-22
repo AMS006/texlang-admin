@@ -286,11 +286,15 @@ export const approvePendingInvoiceColumn = [
         accessor: (row, idx) => idx + 1
     },
     {
-        Header: "Invoice No.",
-        accessor: "invoiceNumber",
+        Header: "Refrence No.",
+        accessor: "refrenceNumber",
         Cell: (info) => {
             return <Link to={`/Enterprise/InvoiceApprove/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
         }
+    },
+    {
+        Header: "Invoice No.",
+        accessor: "invoiceNumber",
     },
     {
         Header: "Invoice Date",
@@ -329,7 +333,7 @@ export const invoiceServiceColumn = [
 export const invoiceTaxDetailColumn = [
     {
         Header: "HSC/SAC",
-        accessor: "hscSac",
+        accessor: "hscCode",
     },
     {
         Header: "Taxable Value",
@@ -379,11 +383,15 @@ export const allInvoicesStatusColumn = [
         accessor: (row, idx) => idx + 1
     },
     {
-        Header: "Invoice No.",
-        accessor: "invoiceNumber",
+        Header: "Refrence No.",
+        accessor: "refrenceNumber",
         Cell: (info) => {
             return <Link to={`/Enterprise/InvoiceDetails/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
         }
+    },
+    {
+        Header: "Invoice No.",
+        accessor: "invoiceNumber",
     },
     {
         Header: "Invoice Date",
@@ -399,16 +407,125 @@ export const allInvoicesStatusColumn = [
     {
         Header: "Status",
         accessor: "status",
-        Cell: (info) => {
-            return <span className="capitalize">{info.value}</span>
-        }
     },
     {
         Header: "Cancel",
         accessor: "id",
         Cell: (info) => {
-            if (info.row.original.status === 'Pending' || info.row.original.status === 'Approved')
-                return <InvoiceCancelButton id={info.value} />
+            return <InvoiceCancelButton id={info.value} />
         }
+    }
+]
+export const companyApprovePendingInvoicesColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "Refrence No.",
+        accessor: "refrenceNumber",
+        Cell: (info) => {
+            return <Link to={`/Invoice/InvoiceDetails/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
+        }
+    },
+    {
+        Header: "Invoice Date",
+        accessor: "invoiceDate",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "Company Name",
+        accessor: "companyName"
+    },
+
+]
+
+export const invoicesToSendColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "Invoice No.",
+        accessor: "invoiceNumber",
+        Cell: (info) => {
+            return <Link to={`/Enterprise/InvoiceToSendDetails/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
+        }
+    },
+    {
+        Header: "Invoice Date",
+        accessor: "invoiceDate",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "Company Name",
+        accessor: "companyName"
+    },
+]
+
+export const contractDetailColumn = [
+    {
+        Header: "From Date",
+        accessor: "fromDate",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "To Date",
+        accessor: "toDate",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "Is Active",
+        accessor: "isActive",
+        Cell: ({ value }) => {
+            return <span>{value ? 'Active' : 'Not Active'}</span>
+        }
+    },
+    {
+        Header: "Total Consumption Units",
+        accessor: "totalConsumptionUnits"
+    },
+    {
+        Header: "Used Units",
+        accessor: "userUnits"
+    }
+]
+
+export const translatorsColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "Translator Name",
+        accessor: "name",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Source Language",
+        accessor: "sourceLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Target Language",
+        accessor: "targetLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+
     }
 ]

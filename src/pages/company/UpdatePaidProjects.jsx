@@ -3,7 +3,7 @@ import { useState } from 'react';
 import SelectControl from '../../components/Select/SelectControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCompanies } from '../../redux/actions/company';
-import DateRange from '../../components/common/DateRangePicker';
+import DateRange from '../../components/common/DateRange';
 import { getPaymentPendingProjects } from '../../redux/actions/project';
 import { clearPaymentPendingProjects } from '../../redux/reducers/project';
 import toast from 'react-hot-toast';

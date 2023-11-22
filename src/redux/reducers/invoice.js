@@ -5,6 +5,8 @@ const initialState = {
     generateInvoiceWorks:[],
     approveInvoiceWorks:[],
     allInvoicesStatus:[],
+    approvePendingInvoices:[],
+    invoicesToSend:[],
     selectedInvoice:null,
     error:null
 }
@@ -32,6 +34,14 @@ const invoiceSlice = createSlice({
         setSelectedInvoice : (state,action) =>{
             state.loading = false;
             state.selectedInvoice = action.payload;
+        },
+        setInvoicesToSend:(state,action)=>{
+            state.loading = false;
+            state.invoicesToSend = action.payload;
+        },
+        setApprovePendingInvoices:(state,action)=>{
+            state.loading = false;
+            state.approvePendingInvoices = action.payload;
         },
         updateInvoiceStatus:(state,action)=>{
            
@@ -68,6 +78,8 @@ export const {
     setApproveInvoiceWorks,
     setAllInvoicesStatus,
     setSelectedInvoice,
+    setInvoicesToSend,
+    setApprovePendingInvoices,
     updateInvoiceStatus,
     updateApprovedInvoiceWorks,
     setError

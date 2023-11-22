@@ -3,6 +3,7 @@
 }
 th{
     max-width: 4rem !important;
+    padding:6px;
 }
 tr,th,td{
     border: 1px solid #ddd;

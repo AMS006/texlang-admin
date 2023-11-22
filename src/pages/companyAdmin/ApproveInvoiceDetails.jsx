@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import megdapLogo from '../assets/megdapLogo.svg'
-import InvoiceNotFound from './NotFound/InvoiceNotFound'
+import megdapLogo from '../../assets/megdapLogo.svg'
+import InvoiceNotFound from '../NotFound/InvoiceNotFound'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getInvoiceDetails } from '../redux/actions/invoice'
+import { getInvoiceDetails } from '../../redux/actions/invoice'
 import dayjs from 'dayjs'
-import { companyBankDetails, companyDetails } from '../data/constants'
-import InvoiceServiceTable from '../components/Table/InvoiceService'
-import TaxDetailTable from '../components/Table/TaxDetail'
-import { numberToWords } from '../helper'
+import { companyBankDetails, companyDetails } from '../../data/constants'
+import InvoiceServiceTable from '../../components/Table/InvoiceService'
+import TaxDetailTable from '../../components/Table/TaxDetail'
+import { numberToWords } from '../../helper'
 import toast from 'react-hot-toast'
 import axios from 'axios'
-import FullScreenLoader from '../components/Loader/FullScreen'
+import FullScreenLoader from '../../components/Loader/FullScreen'
+import UpdateInvoiceModal from '../../components/Modal/UpdateInvoice'
 
-const InvoiceApprovePage = () => {
+
+const ApproveInvoiceDetails = () => {
     const { selectedInvoice, loading, error } = useSelector((state) => state.invoice)
     const [approvingInvoice, setApprovingInvoice] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false);
+
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,26 +35,10 @@ const InvoiceApprovePage = () => {
 
     if (!selectedInvoice && !loading && error)
         return <InvoiceNotFound />
-    const handleApproveInvoice = async () => {
-        if (id) {
-            setApprovingInvoice(true)
-            try {
-                await axios({
-                    method: "PUT",
-                    url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/invoice/updateStatus/${id}`,
-                    data: { isCA: false, isCancel: false },
-                })
-                setApprovingInvoice(false)
-                toast.success('Invoice Approved Successfully')
-                navigate('/Enterprise/ApproveInvoices');
-            } catch (error) {
-                setApprovingInvoice(false)
-                toast.error('Unable to approve invoice')
-            }
-        }
-    }
+
     return (
         <div className='px-6 py-8 font-sans  bg-white'>
+            <UpdateInvoiceModal open={modalOpen} setOpen={setModalOpen} />
             <div className='flex justify-between items-center py-4'>
                 <div>
                     <img src={megdapLogo} alt="Megdap" className='max-w-[300px]' />
@@ -58,7 +46,7 @@ const InvoiceApprovePage = () => {
                 <div className='flex flex-col items-start'>
                     <div className='flex items-center gap-1 font-semibold'>
                         <span>Invoice No.</span>
-                        <span>{selectedInvoice?.invoiceNumber}</span>
+                        <input type="text" id="invoiceNumber" className='' />
                     </div>
                     <div className='flex items-center gap-1 font-semibold'>
                         <span>User Id :</span>
@@ -167,8 +155,7 @@ const InvoiceApprovePage = () => {
             </div>
             <div>
                 <div className='flex gap-2.5 no-print'>
-                    {!selectedInvoice?.adminApproved && <button disabled={approvingInvoice} onClick={handleApproveInvoice} className={`bg-blue-500 text-white px-2.5 py-1.5 no-print ${approvingInvoice ? 'opacity-60' : 'hover:bg-blue-600'}`}>{approvingInvoice ? 'Approving...' : 'Approve Invoice'}</button>}
-                    <button onClick={() => window.print()} className='bg-blue-500 text-white px-2.5 py-1.5 hover:bg-blue-600 no-print'>Print Details</button>
+                    <button onClick={() => setModalOpen(true)} className='bg-blue-500 text-white px-2.5 py-1.5 hover:bg-blue-600 no-print'>Approve</button>
                 </div>
 
             </div>
@@ -176,4 +163,4 @@ const InvoiceApprovePage = () => {
     )
 }
 
-export default InvoiceApprovePage
+export default ApproveInvoiceDetails

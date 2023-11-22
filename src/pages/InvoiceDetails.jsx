@@ -149,7 +149,6 @@ const InvoiceDetailsPage = () => {
                 <div className='flex gap-2.5 no-print'>
                     <button onClick={() => window.print()} className='bg-blue-500 text-white px-2.5 py-1.5 hover:bg-blue-600 no-print'>Print Details</button>
                 </div>
-
             </div>
         </div>
     )

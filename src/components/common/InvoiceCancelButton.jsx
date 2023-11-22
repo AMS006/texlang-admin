@@ -15,7 +15,7 @@ const InvoiceCancelButton = ({ id }) => {
                 await axios({
                     method: 'PUT',
                     url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/invoice/updateStatus/${id}`,
-                    data: { status: 'Cancelled' }
+                    data: { isCA: false, isCancel: true }
                 })
                 toast.success('Invoice Cancelled Successfully')
                 setLoading(false);

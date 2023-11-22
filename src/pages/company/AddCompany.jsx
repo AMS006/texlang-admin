@@ -127,7 +127,7 @@ const AddCompany = () => {
                         <Input type='text' placeholder={'Enter Admin First Name'} label={'Admin First Name'} id={'adminFirstName'} register={{ ...register('adminFirstName') }} errorMessage={errors.adminFirstName?.message} />
                         <Input type='text' placeholder={'Enter Admin Last Name'} label={'Admin Last Name'} id={'adminLastName'} register={{ ...register('adminLastName') }} errorMessage={errors.adminLastName?.message} />
                         <Input type='text' placeholder={'Enter Admin Email'} label={'Admin Email'} id={'adminEmail'} register={{ ...register('adminEmail') }} errorMessage={errors.adminEmail?.message} />
-                        <Input type='text' placeholder={'Enter Admin Password'} label={'Admin Password'} id={'adminPassword'} register={{ ...register('adminPassword') }} errorMessage={errors.adminPassword?.message} />
+                        <Input type='password' placeholder={'Enter Admin Password'} label={'Admin Password'} id={'adminPassword'} register={{ ...register('adminPassword') }} errorMessage={errors.adminPassword?.message} />
                     </div>
                 </div>
                 <div className='flex items-start'>

@@ -14,6 +14,7 @@ const LangSelect = ({ label, name, placeholder, control, errorMessage }) => {
                     <select
                         {...field}
                         placeholder={placeholder}
+                        defaultValue={""}
                         className={`px-2 py-1.5 border w-full rounded ${errorMessage ? 'border-red-500 focus:outline-red-500' : 'border-gray-400 focus:outline-blue-500'}`}
                     >
                         <option value="" disabled >Select {label}</option>
