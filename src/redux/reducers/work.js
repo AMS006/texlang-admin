@@ -8,6 +8,7 @@ const initialState = {
     uploadedWorks:[],
     companyBillingWorks:[],
     generateInvoiceWorks:[],
+    notAssignedWorks:[],
     error: null
 };
 
@@ -35,6 +36,10 @@ const workSlice = createSlice({
             const currentWorks = current(state.uploadedWorks)
             state.uploadedWorks = [...currentWorks,action.payload.data];
         },
+        setNotAssignedWorks:(state,action) =>{
+            state.loading = false;
+            state.notAssignedWorks = action.payload;
+        },
         setCompanyBillingWorks:(state,action) =>{
             state.loading = false;
             state.companyBillingWorks = action.payload;
@@ -56,7 +61,7 @@ const workSlice = createSlice({
             state.loading = false;
             state.downloadProjectWorks = []
         },
-        clearUploadProjectWoks:(state)=>{
+        clearUploadProjectWorks:(state)=>{
             state.loading = false;
             state.uploadProjectWorks = []
         },
@@ -74,10 +79,11 @@ export const {
     setWorksForUpdate,
     setUploadedWorks,
     setCompanyBillingWorks,
+    setNotAssignedWorks,
     updateUserWorks,
     clearWorksForUpdate,
+    clearUploadProjectWorks,
     clearDownloadProjectWoks,
-    clearUploadProjectWoks,
     setError,
 } = workSlice.actions;
 export default workSlice.reducer;

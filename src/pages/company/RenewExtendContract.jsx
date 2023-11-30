@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import ContractDetailsTable from '../../components/Table/ContractDetail';
 import DateRange from '../../components/common/DateRange';
 import { setContractDetails } from '../../redux/reducers/company';
+import toast from 'react-hot-toast';
 
 const RenewExtendContract = () => {
     const [company, setCompany] = useState('');
     const [companyOptions, setCompanyOptions] = useState([])
     const [dateRange, setDateRange] = useState('');
+    const [selectedOption, setSelectedOption] = useState('extend');
+    const [totalUnits, setTotalUnits] = useState('');
     const dispatch = useDispatch()
 
     const { companies, loading } = useSelector((state) => state.company)
@@ -38,6 +41,17 @@ const RenewExtendContract = () => {
         }
     }
 
+    const handleUpdate = () => {
+        const dates = dateRange.split(' - ')
+        const startDate = dates[0]
+        const endDate = dates[1]
+
+
+        if (!startDate || !endDate)
+            return toast.error('Please select date range');
+
+    }
+
     return (
         <div className='px-6'>
             <h1 className='text-2xl  py-4 font-semibold font-sans'>Company Contract Details</h1>
@@ -58,23 +72,23 @@ const RenewExtendContract = () => {
                 <DateRange value={dateRange} setValue={setDateRange} />
                 <div className='flex flex-col gap-0.5'>
                     <label htmlFor="totalUnits" className='font-semibold'>Total Units</label>
-                    <input type="text" id="totalUnits" placeholder='Enter Total Units' className='px-2 py-1.5 border w-full rounded border-black focus:outline-blue-500' />
+                    <input type="text" id="totalUnits" placeholder='Enter Total Units' className='px-2 py-1.5 border w-full rounded border-black focus:outline-blue-500' value={totalUnits} onChange={(e) => setTotalUnits(e.target.value)} />
                 </div>
                 <div className='flex flex-col gap-4'>
                     <label className='font-semibold'>Select Option</label>
                     <div className='flex gap-4'>
                         <div>
-                            <input type="radio" name="type" id="extend" />
+                            <input type="radio" name="type" id="extend" checked={selectedOption === 'extend'} onChange={() => setSelectedOption("extend")} />
                             <label htmlFor="extend">Extend</label>
                         </div>
                         <div>
-                            <input type="radio" name="type" id="renew" />
+                            <input type="radio" name="type" id="renew" checked={selectedOption === 'renew'} onChange={() => setSelectedOption("renew")} />
                             <label htmlFor="renew">Renew</label>
                         </div>
                     </div>
                 </div>
                 <div className='py-4'>
-                    <button className={`w-32 px-2.5 py-1.5 bg-blue-500 hover:bg-blue-600 text-white`}>Update</button>
+                    <button onClick={handleUpdate} className={`w-32 px-2.5 py-1.5 bg-blue-500 hover:bg-blue-600 text-white`}>Update</button>
                 </div>
             </div>
         </div>

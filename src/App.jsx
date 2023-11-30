@@ -31,6 +31,9 @@ import CARoute from './components/common/CARoute';
 import ApprovePendingInvoices from './pages/companyAdmin/ApprovePendingInvoices';
 import ApproveInvoiceDetails from './pages/companyAdmin/ApproveInvoiceDetails';
 import InvoiceToSendDetails from './pages/InvoiceToSendDetails';
+import PageNotFound from './pages/NotFound/PageNotFound';
+import AllTranslators from './pages/translator/AllTranslators';
+import TranslatorDetail from './pages/translator/TranslatorDetail';
 
 function App() {
   const [mounted, setMounted] = useState(false);
@@ -72,6 +75,8 @@ function App() {
           <Route path='ShowInvoicesToSend' element={<ShowInvoicesToSend />} />
           <Route path='AddNewTranslator' element={<AddNewTranslator />} />
           <Route path='AssignTranslator' element={<AssignTranslator />} />
+          <Route path="AllTranslators" element={<AllTranslators />} />
+          <Route path="TranslatorDetails/:translatorId" element={<TranslatorDetail />} />
           <Route path='ReAssignTranslator' element={<ReAssignTranlator />} />
           <Route path='InvoiceDetails/:id' element={<InvoiceDetailsPage />} />
           <Route path='InvoiceApprove/:id' element={<InvoiceApprovePage />} />
@@ -82,6 +87,8 @@ function App() {
           <Route path="ApprovePendingInvoices" element={<ApprovePendingInvoices />} />
           <Route path="InvoiceDetails/:id" element={<ApproveInvoiceDetails />} />
         </Route>
+
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </>
   );

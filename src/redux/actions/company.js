@@ -52,7 +52,6 @@ export const getCompanyContractDetails = (companyId) => async (dispatch) => {
             method: "GET",
             url: `${import.meta.env.VITE_API_URL}/api/megdapadmin/company/contractDetails/${companyId}`,
         })
-        console.log(res)
         dispatch(setContractDetails(res?.data?.contractDetails));
     } catch (error) {
         const statusCode = error?.response?.status;

@@ -15,7 +15,6 @@ const InvoicesStatus = () => {
     return (
         <div className='px-6'>
             <h1 className='text-2xl text-center py-4 font-semibold font-sans'>Invoices Status</h1>
-
             <div>
                 <AllInvoicesStatusTable />
             </div>

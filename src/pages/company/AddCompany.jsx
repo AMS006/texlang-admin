@@ -82,7 +82,7 @@ const AddCompany = () => {
         <div>
             <h1 className='text-2xl text-center py-4 font-semibold font-sans'>Add Company</h1>
             <form onSubmit={handleSubmit(formSubmit)} className='flex flex-col gap-6 px-6 py-4'>
-                <div >
+                <div>
                     <h3 className='bg-blue-200 py-1.5 px-2 font-sans font-semibold'>Company Details</h3>
                     <div className='grid md:grid-cols-3 grid-cols-1 gap-4 py-2.5'>
                         <FormSelect options={countryOptions} register={{ ...register('country') }} isLabel={true} errorMessage={errors.country?.message} label='Country' />
@@ -104,7 +104,6 @@ const AddCompany = () => {
                         <Input type='text' placeholder={'Enter Units Purchased'} label={'Units Purchased'} id={'unitsPurchased'} register={{ ...register('unitsPurchased') }} errorMessage={errors.unitsPurchased?.message} />
                         <Input type='text' placeholder={'Enter Unit Price'} label={'Unit Price'} id={'unitPrice'} register={{ ...register('unitPrice') }} errorMessage={errors.unitPrice?.message} />
                         <Input type='text' placeholder={'Enter Credit Units'} label={'Credit Units'} id={'creditUnits'} register={{ ...register('creditUnits') }} errorMessage={errors.creditUnits?.message} />
-
                     </div>
                 </div>
                 <div>

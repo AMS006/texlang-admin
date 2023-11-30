@@ -1,7 +1,8 @@
 import axios from "axios"
 import { setHeaders } from "../../helper"
-import { setSourceLanguages, setTargetLanguages, setTranslators, sourceLanguageRequest } from "../reducers/translator";
+import { setAllTranslators, setReAssignTranslatorsWorks, setSelectedTranslator, setSourceLanguages, setTargetLanguages, setTranslators, sourceLanguageRequest, translatorRequest } from "../reducers/translator";
 import { logoutUser } from "./user";
+import { setError } from "../reducers/translator";
 
 export const getSourceLanguages = () => async(dispatch) =>{
     try {
@@ -57,4 +58,58 @@ export const getTranslators = (sourceLanguage,targetLanguage) => async(dispatch)
 }
 
 export const getAllTranslators = () => async(dispatch) =>{
+    try {
+        setHeaders();
+        dispatch(translatorRequest())
+        const res = await axios({
+            method:"GET",
+            url:`${import.meta.env.VITE_API_URL}/api/megdapadmin/translator/all`
+        })
+
+        dispatch(setAllTranslators(res?.data?.translators))
+    } catch (error) {
+        if(error?.response?.status === 401){
+            dispatch(logoutUser())
+        }
+        dispatch(setError(error?.response?.data?.message))
+        dispatch(setTranslators([]))
+    }
+}
+
+export const getTranslatorDetails = (translatorId) => async(dispatch) =>{
+    try {
+        setHeaders();
+        dispatch(translatorRequest())
+        const res = await axios({
+            method:"GET",
+            url:`${import.meta.env.VITE_API_URL}/api/megdapadmin/translator/translatorDetails/${translatorId}`
+        })
+
+        dispatch(setSelectedTranslator(res?.data))
+    } catch (error) {
+        if(error?.response?.status === 401){
+            dispatch(logoutUser())
+        }
+        dispatch(setError(error?.response?.data?.message))
+        dispatch(setTranslators([]))
+    }
+}
+
+export const getReAssignTranslatorsWorks = (translatorId) => async(dispatch) =>{
+    try {
+        setHeaders();
+        dispatch(translatorRequest())
+        const res = await axios({
+            method:"GET",
+            url:`${import.meta.env.VITE_API_URL}/api/megdapadmin/translator/reAssignTranslatorsWorks`
+        })
+
+        dispatch(setReAssignTranslatorsWorks(res?.data?.works))
+    } catch (error) {
+        if(error?.response?.status === 401){
+            dispatch(logoutUser())
+        }
+        dispatch(setError(error?.response?.data?.message))
+        dispatch(setTranslators([]))
+    }
 }

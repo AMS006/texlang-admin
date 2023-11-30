@@ -1,12 +1,17 @@
-html,body,#root,main{
-  height: 100%;
-}
-main{
-  background-image: url('./assets/bg1.png');
-}
-#root{
+html,body,#root{
+  height:100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+}
+main{
+  flex:1;
+}
+footer{
+  margin-top: auto;
+}
+body{
+  background-image: url('./assets/bg1.png');
 }
 a.active,a.active:hover{
   background-color:#3b82f6;

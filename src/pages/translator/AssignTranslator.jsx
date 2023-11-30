@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSourceLanguages, getTargetLanguages, getTranslators } from '../../redux/actions/translator';
 import SelectControl from '../../components/Select/SelectControl';
 import FullScreenLoader from '../../components/Loader/FullScreen';
-import { set } from 'date-fns';
+import { getNotAssignedWorks } from '../../redux/actions/work';
+import NotAssigneWorksTable from '../../components/Table/NotAssignedWorks';
 
 const AssignTranslator = () => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const AssignTranslator = () => {
     const [sourceLanguage, setSourceLanguage] = useState('')
     const [targetLanguage, setTargetLanguage] = useState('')
     const [translator, setTranslator] = useState('');
+    const [translatorName, setTranslatorName] = useState('');
 
     const { sourceLanguages, targetLanguages, translators, loading } = useSelector((state) => state.translator)
 
@@ -58,9 +60,19 @@ const AssignTranslator = () => {
     useEffect(() => {
         if (sourceLanguage && targetLanguage) {
             setTranslator('')
-            dispatch(getTranslators(sourceLanguage, targetLanguage))
+            dispatch(getTranslators(sourceLanguage, targetLanguage));
+            dispatch(getNotAssignedWorks(sourceLanguage, targetLanguage));
         }
     }, [sourceLanguage, targetLanguage])
+
+    useEffect(() => {
+        if (translator) {
+
+            const selectedTranslator = translators.find((t) => t.id === translator)
+            setTranslatorName(selectedTranslator.name)
+        }
+    }, [translator])
+
     if (loading) {
         return <FullScreenLoader />
     }
@@ -89,6 +101,10 @@ const AssignTranslator = () => {
                     value={translator}
                     onChange={setTranslator}
                 />
+            </div>
+            <div className='py-6 '>
+                <h3 className='font-semibold text-xl text-center py-2.5'>List of Available Files</h3>
+                <NotAssigneWorksTable translator={translator} translatorName={translatorName} />
             </div>
         </div>
     )

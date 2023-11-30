@@ -2,7 +2,6 @@ import axios from "axios";
 import { logoutUser } from "./user";
 import { setHeaders } from "../../helper";
 import { invoiceRequest, setAllInvoicesStatus, setApproveInvoiceWorks, setApprovePendingInvoices, setError, setGenerateInvoiceWorks, setInvoicesToSend, setSelectedInvoice } from "../reducers/invoice";
-import { set } from "date-fns";
 
 export const getGenerateInvoiceWorks = (companyId,start_date,end_date) => async(dispatch) =>{
     try {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import SelectControl from '../components/Select/SelectControl'
 import { getUserProjects } from '../redux/actions/project'
 import { getUploadProjectWork } from '../redux/actions/work'
-import { clearUploadProjectWoks } from '../redux/reducers/work'
+import { clearUploadProjectWorks } from '../redux/reducers/work'
 import UploadFilesTable from '../components/Table/UploadFiles'
 import { useFileData } from '../context/FileContext'
 import toast from 'react-hot-toast'
@@ -52,7 +52,7 @@ const UploadCustomerFiles = () => {
             dispatch(getCompanyUsers(company))
         }
         setFileData([])
-        dispatch(clearUploadProjectWoks())
+        dispatch(clearUploadProjectWorks())
     }, [company, dispatch, setFileData])
 
     useEffect(() => {
@@ -73,7 +73,7 @@ const UploadCustomerFiles = () => {
             dispatch(getUserProjects(user))
         }
         setFileData([])
-        dispatch(clearUploadProjectWoks())
+        dispatch(clearUploadProjectWorks())
     }, [user, dispatch, setFileData])
 
     useEffect(() => {
@@ -91,7 +91,7 @@ const UploadCustomerFiles = () => {
             dispatch(getUploadProjectWork(project))
         setFileData([])
         return () => {
-            dispatch(clearUploadProjectWoks())
+            dispatch(clearUploadProjectWorks());
         }
 
     }, [project, dispatch, setFileData])
@@ -103,11 +103,36 @@ const UploadCustomerFiles = () => {
     const { uploadProjectWorks, loading } = useSelector((state) => state.work)
 
     const handleFileUpload = async () => {
+        const completedWorks = {};
         if (fileData.length === 0)
             return toast.error('Please upload files')
 
+        for (let i = 0; i < fileData.length; i++) {
+            const fileId = fileData[i].get('id');
+            uploadProjectWorks.forEach((work) => {
+                work.items.forEach((item) => {
+                    if (item.id === fileId) {
+                        if (!completedWorks[work.workId]) {
+                            completedWorks[work.workId] = 1;
+                        } else {
+                            completedWorks[work.workId] += 1;
+                        }
+                    }
+                })
+            })
+        }
+        const updateWorkStatus = {};
+        for (let i = 0; i < fileData.length; i++) {
+            const workId = fileData[i].get('workId');
+            const work = uploadProjectWorks.find((work) => work.workId === workId);
+            if (completedWorks[workId] === work.items.length) {
+                updateWorkStatus[workId] = true
+            }
+        }
+
         setFileUploading(true)
         try {
+
             for (let i = 0; i < fileData.length; i++) {
                 await axios({
                     method: 'POST',
@@ -115,13 +140,16 @@ const UploadCustomerFiles = () => {
                     data: fileData[i]
                 })
             }
-            let totalLength = 0;
-            uploadProjectWorks.forEach((work) => {
-                work.targetLanguage.forEach((data) => {
-                    if (!data.hasOwnProperty('downloadPath'))
-                        totalLength++
+
+            for (const workId in updateWorkStatus) {
+                await axios({
+                    method: "PUT",
+                    url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/work/updateStatus/${workId}`
                 })
-            })
+            }
+
+            let totalLength = uploadProjectWorks.reduce((acc, work) => acc + work.items.length, 0);
+
             if (totalLength === fileData.length) {
                 await axios({
                     method: "PUT",
@@ -136,7 +164,7 @@ const UploadCustomerFiles = () => {
             setProject('')
             setProjectName('')
             setFileData([])
-            dispatch(clearUploadProjectWoks())
+            dispatch(clearUploadProjectWorks())
         } catch (error) {
             setFileUploading(false)
             toast.error('Unable to upload files')
@@ -176,7 +204,7 @@ const UploadCustomerFiles = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <UploadFilesTable tableData={work.targetLanguage.map((data) => ({ ...data, id: work.id }))} />
+                                        <UploadFilesTable tableData={work.items.map((data) => ({ ...data, id: data.id }))} />
                                     </div>
                                 </div>
                             )) : <p>No files uploaded</p>}

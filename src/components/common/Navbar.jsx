@@ -27,6 +27,7 @@ const translatorNavbarData = [
     { name: 'Add New Translator', link: '/Enterprise/AddNewTranslator' },
     { name: 'Assign Translator', link: '/Enterprise/AssignTranslator' },
     { name: 'Re-Assign Translator', link: '/Enterprise/ReAssignTranslator' },
+    { name: 'All Translators', link: '/Enterprise/AllTranslators' }
 ]
 
 const NavbarSm = ({ open, setOpen }) => {
@@ -43,7 +44,7 @@ const NavbarSm = ({ open, setOpen }) => {
                     </button>
                     <div className={`${companyNavbarOpen ? 'h-auto py-2' : 'h-0 overflow-hidden'} transition-height flex flex-col gap-1.5 items-start w-full `}>
                         {companyNavbarData.map((item, index) => (
-                            <NavLink key={index} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded w-full' onClick={() => setOpen(false)} to={item.link}>{item.name}</NavLink>
+                            <NavLink key={item.name} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded w-full' onClick={() => setOpen(false)} to={item.link}>{item.name}</NavLink>
                         ))}
                     </div>
                 </div>
@@ -55,7 +56,7 @@ const NavbarSm = ({ open, setOpen }) => {
                     </button>
                     <div className={`${!translatorNavbarOpen ? 'h-0 overflow-hidden' : 'h-auto'} flex flex-col gap-1.5 px-2.5 py-1.5 p-1.5`}>
                         {translatorNavbarData.map((item, index) => (
-                            <NavLink key={index} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link} onClick={() => setOpen(false)}>{item.name}</NavLink>
+                            <NavLink key={item.name} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link} onClick={() => setOpen(false)}>{item.name}</NavLink>
                         ))}
                     </div>
                 </div>
@@ -77,7 +78,7 @@ const NavbarLg = () => {
                 </div>
                 <div className={`${companyNavbarOpen ? 'flex' : 'hidden'} flex-col gap-1 absolute z-20 top-[24px] -left-4 bg-white shadow border p-1.5 min-w-[240px]`}>
                     {companyNavbarData.map((item, index) => (
-                        <NavLink key={index} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded' to={item.link}>{item.name}</NavLink>
+                        <NavLink key={item.name} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded' to={item.link}>{item.name}</NavLink>
                     ))}
                 </div>
             </div>
@@ -89,7 +90,7 @@ const NavbarLg = () => {
                 </div>
                 <div className={`${translatorNavbarOpen ? 'flex' : 'hidden'} flex-col gap-1.5 absolute z-20 top-[24px] -left-4 bg-white shadow border px-2.5 py-1.5 p-1.5 min-w-[240px]`}>
                     {translatorNavbarData.map((item, index) => (
-                        <NavLink key={index} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link}>{item.name}</NavLink>
+                        <NavLink key={item.name} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link}>{item.name}</NavLink>
                     ))}
                 </div>
             </div>
@@ -107,7 +108,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='flex justify-between items-center px-4 p-2 no-print shadow-xl  border-b bg-[#f8f8f8]'>
+        <div className='flex justify-between items-center px-4 p-2 no-print shadow  border-b bg-[#f8f8f8]'>
             <div className='no-print'>
                 <img src={logo} alt="TexLang" />
             </div>

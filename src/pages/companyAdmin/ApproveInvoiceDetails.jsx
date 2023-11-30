@@ -9,8 +9,6 @@ import { companyBankDetails, companyDetails } from '../../data/constants'
 import InvoiceServiceTable from '../../components/Table/InvoiceService'
 import TaxDetailTable from '../../components/Table/TaxDetail'
 import { numberToWords } from '../../helper'
-import toast from 'react-hot-toast'
-import axios from 'axios'
 import FullScreenLoader from '../../components/Loader/FullScreen'
 import UpdateInvoiceModal from '../../components/Modal/UpdateInvoice'
 

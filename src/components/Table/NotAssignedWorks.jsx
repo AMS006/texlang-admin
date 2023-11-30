@@ -1,23 +1,18 @@
-import axios from 'axios';
-import toast from 'react-hot-toast';
 import React, { useMemo, useState } from 'react';
 import { useRowSelect, useTable } from 'react-table';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { generateInvoiceTableColumn } from '../../data/columns';
+import { notAssignedWorksColumn } from '../../data/columns';
 import './style.css'
-import { setGenerateInvoiceWorks } from '../../redux/reducers/invoice';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 import TableLoader from '../Loader/Table';
+import { getNotAssignedWorks } from '../../redux/actions/work';
 
-
-const GenerateInvoiceTable = () => {
-
-    const [invoiceGenerating, setInvoiceGenerating] = useState(false);
-
-    const { generateInvoiceWorks, loading } = useSelector((state) => state.invoice)
-    const data = useMemo(() => generateInvoiceWorks, [generateInvoiceWorks])
-
-    const dispatch = useDispatch();
+const NotAssigneWorksTable = ({ translator, translatorName }) => {
+    const [assigningTranslator, setAssigningTranslator] = useState(false)
+    const { notAssignedWorks, loading } = useSelector((state) => state.work)
+    const data = useMemo(() => notAssignedWorks, [notAssignedWorks])
     const {
         getTableProps,
         getTableBodyProps,
@@ -27,43 +22,38 @@ const GenerateInvoiceTable = () => {
         selectedFlatRows
     } = useTable(
         {
-            columns: generateInvoiceTableColumn,
+            columns: notAssignedWorksColumn,
             data,
         },
         useRowSelect,
     );
-
-    const handleGenerateInvoice = async () => {
-        if (selectedFlatRows.length === 0)
-            return toast.error('Please select atleast one project')
-
-        const filteredData = [];
+    const dispatch = useDispatch()
+    const handleAssignTranlator = async () => {
+        const filteredRow = []
 
         selectedFlatRows.forEach((row) => {
-            filteredData.push(row.original)
+            filteredRow.push(row.original.id)
         })
+        if (filteredRow.length === 0)
+            return toast.error('Please select atleast one work')
 
-        const invoiceData = filteredData.map((data) => {
-            return {
-                id: data.id,
-                email: data.customerId,
-                amount: data.amount
-            }
-        });
-        setInvoiceGenerating(true)
+        if (!translator)
+            return toast.error('Please select translator');
+
         try {
+            setAssigningTranslator(true);
             await axios({
-                method: "POST",
-                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/invoice/generate`,
-                data: { works: invoiceData }
+                method: 'POST',
+                url: `${import.meta.env.VITE_API_URL}/api/megdapAdmin/translator/assignWork`,
+                data: { translator, translatorName, works: filteredRow }
             })
-            toast.success('Invoice Generated Successfully')
-            setInvoiceGenerating(false)
-            dispatch(setGenerateInvoiceWorks([]))
+            toast.success('Translator assigned successfully');
+            dispatch(getNotAssignedWorks())
+            setAssigningTranslator(false);
+
         } catch (error) {
-            const message = error?.response?.data?.message || 'Unable to Generate Invoice'
-            toast.error(message)
-            setInvoiceGenerating(false)
+            setAssigningTranslator(false);
+            toast.error('Unable to assign translator');
         }
     }
     return (
@@ -99,7 +89,7 @@ const GenerateInvoiceTable = () => {
                     ) : (
                         <tbody>
                             <tr>
-                                <td colSpan={generateInvoiceTableColumn.length} className="text-center py-1.5 border w-full">
+                                <td colSpan={notAssignedWorksColumn.length} className="text-center py-1.5 border w-full">
                                     {loading ? <TableLoader /> : 'No Records Found'}
                                 </td>
                             </tr>
@@ -107,11 +97,11 @@ const GenerateInvoiceTable = () => {
                     )}
                 </table>
             </div>
-            {selectedFlatRows && selectedFlatRows.length > 0 && <div className='py-2.5'>
-                <button onClick={handleGenerateInvoice} disabled={invoiceGenerating} className={`px-2.5 py-1.5 bg-blue-500  text-white ${invoiceGenerating ? 'bg-opacity-60' : 'hover:bg-blue-600'}`}>{invoiceGenerating ? 'Generating...' : 'Generate Invoice'}</button>
-            </div>}
+            <div className='flex justify-end py-4'>
+                <button onClick={handleAssignTranlator} disabled={assigningTranslator} className={`w-36 px-2 py-1.5 bg-blue-500 rounded text-white ${assigningTranslator ? 'bg-opacity-60' : 'hover:bg-blue-600'}`}>{assigningTranslator ? <TableLoader /> : 'Assign Translator'}</button>
+            </div>
         </>
     );
 };
 
-export default GenerateInvoiceTable;
+export default NotAssigneWorksTable;

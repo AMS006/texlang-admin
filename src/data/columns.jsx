@@ -3,10 +3,15 @@ import UpdateWorkButton from "../components/common/UpdateWorkButton"
 import UploadButton from "../components/common/UploadButton"
 import CheckBox from "../components/common/CheckBox"
 import { Link } from "react-router-dom"
-import Invoice from "../redux/reducers/invoice"
 import InvoiceCancelButton from "../components/common/InvoiceCancelButton"
+import { clearPaymentPendingProjects } from "../redux/reducers/project"
+import ReAssignTranslatorButton from "../components/common/ReAssignTranslatorButton"
 
 export const downloadFilesColumns = [
+    {
+        Header: 'File Name',
+        accessor: 'fileName'
+    },
     {
         Header: 'Source Language',
         accessor: 'sourceLanguage',
@@ -26,15 +31,16 @@ export const downloadFilesColumns = [
 export const uploadFilesColumns = [
     {
         Header: 'Target Language',
-        accessor: 'lang',
+        accessor: 'targetLanguage',
         Cell: (info) => {
             return <span className="capitalize">{info.value}</span>
         }
     },
     {
         Header: 'Upload',
+        accessor: 'id',
         Cell: (info) => {
-            return <UploadButton data={info.row.original} idx={info.row.index} />
+            return <UploadButton id={info.value} workId={info?.row?.original?.workId} />
         }
     }
 ]
@@ -412,7 +418,8 @@ export const allInvoicesStatusColumn = [
         Header: "Cancel",
         accessor: "id",
         Cell: (info) => {
-            return <InvoiceCancelButton id={info.value} />
+            if (info.row.original.status !== 'Cancelled')
+                return <InvoiceCancelButton id={info.value} />
         }
     }
 ]
@@ -508,8 +515,41 @@ export const translatorsColumn = [
         Header: "Translator Name",
         accessor: "name",
         Cell: (info) => {
-            return <span className="capitalize">{info.value}</span>
+            return <Link to={`/Enterprise/TranslatorDetails/${info.row.original.id}`} className="text-blue-500 hover:underline">{info.value}</Link>
         }
+    },
+    {
+        Header: "Translator Email",
+        accessor: "email",
+    },
+    {
+        Header: "Contact No.",
+        accessor: "contact",
+    },
+    {
+        Header: "Status",
+        accessor: "status",
+    },
+]
+
+export const notAssignedWorksColumn = [
+    {
+        id: 'selection',
+        Header: ({ getToggleAllRowsSelectedProps }) => (
+            <CheckBox {...getToggleAllRowsSelectedProps()} />
+        ),
+        Cell: ({ row }) => (
+            <CheckBox {...row.getToggleRowSelectedProps()} />
+        ),
+    },
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "File Name",
+        accessor: "fileName",
+
     },
     {
         Header: "Source Language",
@@ -526,6 +566,153 @@ export const translatorsColumn = [
         }
     },
     {
+        Header: "Word Count",
+        accessor: "wordCount",
+        Cell: (info) => {
+            return <span>{info.value}</span>
+        }
+    },
+    {
+        Header: "Job Type",
+        accessor: "jobType",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+]
+
+export const translatorLanguageColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "Source Language",
+        accessor: "sourceLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Target Language",
+        accessor: "targetLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+]
+
+export const translatorWorksColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "File Name",
+        accessor: "fileName",
+
+    },
+    {
+        Header: "Project Name",
+        accessor: "projectName"
+    },
+    {
+        Header: "Source Language",
+        accessor: "sourceLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Target Language",
+        accessor: "targetLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Word Count",
+        accessor: "wordCount",
+        Cell: (info) => {
+            return <span>{info.value}</span>
+        }
+    },
+    {
+        Header: "Assigned Date",
+        accessor: "assignedOn",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "Status",
+        accessor: "status",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+]
+
+export const reAssignTranslatorColumn = [
+    {
+        Header: "Sr. No.",
+        accessor: (row, idx) => idx + 1
+    },
+    {
+        Header: "File Name",
+        accessor: "fileName",
+
+    },
+    {
+        Header: "Project Name",
+        accessor: "projectName"
+    },
+    {
+        Header: "Source Language",
+        accessor: "sourceLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Target Language",
+        accessor: "targetLanguage",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Word Count",
+        accessor: "wordCount",
+        Cell: (info) => {
+            return <span>{info.value}</span>
+        }
+    },
+    {
+        Header: "Translator Name",
+        accessor: "translatorName",
+    },
+    {
+        Header: "Assigned Date",
+        accessor: "assignedOn",
+        Cell: ({ value }) => {
+            return <span>{dayjs(value).format('M/DD/YYYY')}</span>
+        }
+    },
+    {
+        Header: "Status",
+        accessor: "status",
+        Cell: (info) => {
+            return <span className="capitalize">{info.value}</span>
+        }
+    },
+    {
+        Header: "Action",
+        Cell: (info) => {
+            return <ReAssignTranslatorButton work={info.row.original} />
+        }
 
     }
 ]
+
+
