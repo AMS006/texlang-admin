@@ -1,10 +1,15 @@
 # Stage 1: Build Image
 FROM node:18-alpine as build
-RUN apk add git
+
+
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm install
+
+RUN npm ci --ignore-scripts
+
 COPY . .
+
 RUN npm run build
 
 # Stage 2, use the compiled app, ready for production with Nginx

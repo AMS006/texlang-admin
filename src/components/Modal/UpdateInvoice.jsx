@@ -1,11 +1,11 @@
 import axios from 'axios'
-import React from 'react'
 import toast from 'react-hot-toast'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../common/Input'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useState } from 'react'
 
 const formSchema = yup.object({
     invoiceNumber: yup.string().required('Invoice Number is required'),
@@ -14,7 +14,7 @@ const formSchema = yup.object({
 
 const UpdateInvoiceModal = ({ open, setOpen }) => {
 
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -48,8 +48,8 @@ const UpdateInvoiceModal = ({ open, setOpen }) => {
     return (
         <>
             {open && <div>
-                <div className='fixed  top-0 bottom-0 z-20 right-0 left-0 bg-slate-500 bg-opacity-40' onClick={() => setOpen(false)}></div>
-                <form onSubmit={handleSubmit(formSubmit)} className='fixed  right-1/2 top-1/2 z-40 overflow-y-hidden translate-x-1/2 -translate-y-1/2 md:min-w-[50%] min-w-[80%] bg-white px-4 py-4'>
+                <div className='fixed  top-0 bottom-0 z-20 right-0 left-0 bg-slate-500 bg-opacity-40' role='button' onClick={() => setOpen(false)}></div>
+                <form role="dialog" aria-modal="true" onSubmit={handleSubmit(formSubmit)} className='fixed  right-1/2 top-1/2 z-40 overflow-y-hidden translate-x-1/2 -translate-y-1/2 md:min-w-[50%] min-w-[80%] bg-white px-4 py-4'>
                     <div className='border border-yellow-500 font-sans my-4'>
                         <h1 className='bg-yellow-500 text-white text-lg px-2.5 py-1.5 text-start'>Approve Invoice</h1>
                         <div className='flex flex-col gap-2.5 px-2.5 py-4 select-none'>

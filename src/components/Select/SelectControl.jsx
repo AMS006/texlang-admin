@@ -1,4 +1,3 @@
-import React from 'react'
 
 const SelectControl = ({ options, onChange, label, id, value, disabled = false, capitalize = false }) => {
     return (

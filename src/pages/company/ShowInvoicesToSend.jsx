@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import InvoicesToSendTable from '../../components/Table/InvoiceToSend'
 import { useDispatch, useSelector } from 'react-redux'
 import { getInvoicesToSend } from '../../redux/actions/invoice';

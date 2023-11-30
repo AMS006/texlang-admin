@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SelectControl from "../Select/SelectControl";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { updateReAssignTranslatorsWorks } from "../../redux/reducers/translator";
+import PropTypes from 'prop-types';
+
+
 
 const ReAssignTranslatorModal = ({ work, open, setOpen }) => {
 
@@ -81,8 +84,8 @@ const ReAssignTranslatorModal = ({ work, open, setOpen }) => {
     return (
         <>
             {open && <div>
-                <div className='fixed  top-0 bottom-0 z-20 right-0 left-0 bg-slate-500 bg-opacity-40' onClick={() => setOpen(false)}></div>
-                <div className="fixed  right-1/2 top-1/2 z-40 overflow-y-hidden translate-x-1/2 -translate-y-1/2 md:min-w-[50%] min-w-[80%] bg-white px-4 py-4">
+                <div className='fixed  top-0 bottom-0 z-20 right-0 left-0 bg-slate-500 bg-opacity-40' role="button" onClick={() => setOpen(false)}></div>
+                <div role="dialog" aria-modal="true" className="fixed  right-1/2 top-1/2 z-40 overflow-y-hidden translate-x-1/2 -translate-y-1/2 md:min-w-[50%] min-w-[80%] bg-white px-4 py-4">
                     <div className='border border-yellow-500 font-sans my-4'>
                         <h1 className='bg-yellow-500 text-white text-lg px-2.5 py-1.5 text-start'>Re-Assign Translator</h1>
                         <div className='flex items-start justify-between gap-2.5 px-2.5 py-4 select-none'>
@@ -124,4 +127,9 @@ const ReAssignTranslatorModal = ({ work, open, setOpen }) => {
     )
 }
 
+ReAssignTranslatorModal.prototype = {
+    work: PropTypes.object.isRequired,
+    open: PropTypes.bool.isRequired,
+    setOpen: PropTypes.func.isRequired,
+};
 export default ReAssignTranslatorModal

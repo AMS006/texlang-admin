@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import logo from '../../assets/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../redux/actions/user'
@@ -43,7 +43,7 @@ const NavbarSm = ({ open, setOpen }) => {
                         <BsChevronDown />
                     </button>
                     <div className={`${companyNavbarOpen ? 'h-auto py-2' : 'h-0 overflow-hidden'} transition-height flex flex-col gap-1.5 items-start w-full `}>
-                        {companyNavbarData.map((item, index) => (
+                        {companyNavbarData.map((item) => (
                             <NavLink key={item.name} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded w-full' onClick={() => setOpen(false)} to={item.link}>{item.name}</NavLink>
                         ))}
                     </div>
@@ -55,7 +55,7 @@ const NavbarSm = ({ open, setOpen }) => {
                         <BsChevronDown />
                     </button>
                     <div className={`${!translatorNavbarOpen ? 'h-0 overflow-hidden' : 'h-auto'} flex flex-col gap-1.5 px-2.5 py-1.5 p-1.5`}>
-                        {translatorNavbarData.map((item, index) => (
+                        {translatorNavbarData.map((item) => (
                             <NavLink key={item.name} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link} onClick={() => setOpen(false)}>{item.name}</NavLink>
                         ))}
                     </div>
@@ -71,25 +71,25 @@ const NavbarLg = () => {
     return (
         <nav className='lg:flex hidden justify-between items-center gap-6 font-semibold font-sans'>
             <NavLink to='/EnterPrise/UploadCustomerFiles' className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded'>Upload Customer Files</NavLink>
-            <div className='relative' onMouseOver={() => setCompanyNavbarOpen(true)} onMouseOut={() => setCompanyNavbarOpen(false)}>
+            <div className='relative' onMouseOver={() => setCompanyNavbarOpen(true)} onMouseOut={() => setCompanyNavbarOpen(false)} onFocus={() => setCompanyNavbarOpen(true)} onBlur={() => setCompanyNavbarOpen(false)}>
                 <div className='flex items-center gap-1.5'>
                     <span>Company</span>
                     <BsChevronDown />
                 </div>
                 <div className={`${companyNavbarOpen ? 'flex' : 'hidden'} flex-col gap-1 absolute z-20 top-[24px] -left-4 bg-white shadow border p-1.5 min-w-[240px]`}>
-                    {companyNavbarData.map((item, index) => (
+                    {companyNavbarData.map((item) => (
                         <NavLink key={item.name} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded' to={item.link}>{item.name}</NavLink>
                     ))}
                 </div>
             </div>
             <NavLink to={'/Enterprise/AddNewUser'} className='hover:bg-[#c6c9cc75] px-2.5 py-1.5 rounded'>Add New User</NavLink>
-            <div className='relative' onMouseOver={() => setTranslatorNavbarOpen(true)} onMouseOut={() => setTranslatorNavbarOpen(false)}>
+            <div className='relative' onMouseOver={() => setTranslatorNavbarOpen(true)} onMouseOut={() => setTranslatorNavbarOpen(false)} onFocus={() => setCompanyNavbarOpen(true)} onBlur={() => setCompanyNavbarOpen(false)}>
                 <div className='flex items-center gap-1.5'>
                     <span>Translator</span>
                     <BsChevronDown />
                 </div>
                 <div className={`${translatorNavbarOpen ? 'flex' : 'hidden'} flex-col gap-1.5 absolute z-20 top-[24px] -left-4 bg-white shadow border px-2.5 py-1.5 p-1.5 min-w-[240px]`}>
-                    {translatorNavbarData.map((item, index) => (
+                    {translatorNavbarData.map((item) => (
                         <NavLink key={item.name} className='hover:bg-[#c6c9cc75] p-1.5 rounded' to={item.link}>{item.name}</NavLink>
                     ))}
                 </div>

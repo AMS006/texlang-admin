@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
 import { useSelector } from 'react-redux';
 

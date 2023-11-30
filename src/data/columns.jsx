@@ -4,7 +4,6 @@ import UploadButton from "../components/common/UploadButton"
 import CheckBox from "../components/common/CheckBox"
 import { Link } from "react-router-dom"
 import InvoiceCancelButton from "../components/common/InvoiceCancelButton"
-import { clearPaymentPendingProjects } from "../redux/reducers/project"
 import ReAssignTranslatorButton from "../components/common/ReAssignTranslatorButton"
 
 export const downloadFilesColumns = [

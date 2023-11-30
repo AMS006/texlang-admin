@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 const Pagination = (

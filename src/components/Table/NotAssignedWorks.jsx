@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRowSelect, useTable } from 'react-table';
 
 import { notAssignedWorksColumn } from '../../data/columns';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getApproveInvoiceWorks } from '../../redux/actions/invoice';
 import ApproveInvoiceTable from '../../components/Table/ApproveInvoice';

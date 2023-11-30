@@ -2,10 +2,11 @@ import axios from 'axios'
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { updateInvoiceStatus } from '../../redux/reducers/invoice';
-import React from 'react';
+import { useState } from 'react';
+
 
 const InvoiceCancelButton = ({ id }) => {
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const handleCancel = async () => {
         const confirm = window.confirm('Are you sure you want to cancel this invoice?')

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import TranslatorLanguageTable from '../../components/Table/TranslatorLanguage'
 import TranslatorWorkColumn from '../../components/Table/TranslatorWork'
 import { useDispatch, useSelector } from 'react-redux'

@@ -1,9 +1,9 @@
-import React from 'react'
+import { forwardRef, useEffect, useRef } from "react"
 
-const CheckBox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
+const CheckBox = forwardRef(({ indeterminate, ...rest }, ref) => {
+    const defaultRef = useRef()
     const resolvedRef = ref || defaultRef
-    React.useEffect(() => {
+    useEffect(() => {
         resolvedRef.current.indeterminate = indeterminate
     }, [resolvedRef, indeterminate])
     return (

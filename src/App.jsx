@@ -16,7 +16,6 @@ import AddNewTranslator from './pages/translator/AddNewTranslator';
 import AssignTranslator from './pages/translator/AssignTranslator';
 import ReAssignTranlator from './pages/translator/ReAssignTranlator';
 import GenerateInvoices from './pages/company/GenerateInvoices';
-import Invoices from './pages/company/Invoices';
 import AddNewUser from './pages/AddNewUser';
 import InvoicesStatus from './pages/company/InvoicesStatus';
 import RenewExtendContract from './pages/company/RenewExtendContract';

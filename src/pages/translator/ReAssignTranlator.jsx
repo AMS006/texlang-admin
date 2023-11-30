@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import ReAssignTranslatorTable from '../../components/Table/ReAssignTranslator'
 import { useDispatch, useSelector } from 'react-redux'
 import { getReAssignTranslatorsWorks } from '../../redux/actions/translator';

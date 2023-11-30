@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCompanies } from '../redux/actions/company'

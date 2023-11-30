@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import megdapLogo from '../assets/megdapLogo.svg'
 import InvoiceNotFound from './NotFound/InvoiceNotFound'

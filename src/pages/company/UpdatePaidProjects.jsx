@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react';
 import SelectControl from '../../components/Select/SelectControl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { clearPaymentPendingProjects } from '../../redux/reducers/project';
 import toast from 'react-hot-toast';
 import UpdatePaidProjectsTable from '../../components/Table/UpdatePaidProjects';
 import SubmitButton from '../../components/common/SubmitButton';
+
 const UpdatePaidProjects = () => {
     const [companyOptions, setCompanyOptions] = useState([])
     const [company, setCompany] = useState('')

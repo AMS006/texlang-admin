@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import SelectControl from '../../components/Select/SelectControl'
 import { getAllCompanies, getCompanyContractDetails } from '../../redux/actions/company';
 import { useDispatch, useSelector } from 'react-redux';

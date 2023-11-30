@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ReAssignTranslatorModal from '../Modal/ReAssignedTranslator'
 
 const ReAssignTranslatorButton = ({ work }) => {

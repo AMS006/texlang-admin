@@ -1,6 +1,6 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRowSelect, useTable } from 'react-table';
 import { useDispatch, useSelector } from 'react-redux';
 

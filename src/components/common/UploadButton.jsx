@@ -1,4 +1,3 @@
-import React from 'react'
 import { useFileData } from '../../context/FileContext'
 
 

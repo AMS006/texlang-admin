@@ -1,8 +1,8 @@
-import React from 'react'
+import { useState } from 'react';
 import UpdateWorkModal from '../Modal/UpdateWork';
 
 const UpdateWorkButton = ({ work }) => {
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTranslators } from '../../redux/actions/translator';
 import FullScreenLoader from '../../components/Loader/FullScreen';

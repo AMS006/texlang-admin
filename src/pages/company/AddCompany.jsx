@@ -1,4 +1,3 @@
-import React from 'react'
 import * as yup from 'yup'
 import { Country } from 'country-state-city'
 import { useForm } from 'react-hook-form'
@@ -9,6 +8,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { addCompany } from '../../redux/reducers/company'
+import { useEffect, useState } from 'react'
 
 const formSchema = yup.object({
     country: yup.string().required('Country is required'),
@@ -43,8 +43,8 @@ const formSchema = yup.object({
 const AddCompany = () => {
     const countries = Country.getAllCountries()
 
-    const [countryOptions, setCountryOptions] = React.useState([])
-    const [loading, setLoading] = React.useState(false)
+    const [countryOptions, setCountryOptions] = useState([])
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -52,7 +52,7 @@ const AddCompany = () => {
     })
 
 
-    React.useEffect(() => {
+    useEffect(() => {
         const countryOptions = countries.map((country) => ({
             value: country.isoCode,
             label: country.name,
