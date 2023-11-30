@@ -41,7 +41,15 @@ const UpdateWorkModal = ({ open, setOpen, work }) => {
     return (
         <>
             {open && <div>
-                <div className='fixed  top-0 bottom-0 z-20 right-0 left-0 bg-slate-500 bg-opacity-40' role='button' onClick={() => setOpen(false)}></div>
+                <div className='fixed  top-0 bottom-0 z-20 right-0 left-0 bg-slate-500 bg-opacity-40'
+                    role="button"
+                    onClick={() => setOpen(false)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            setOpen(false);
+                        }
+                    }}
+                ></div>
                 <form role="dialog" aria-modal="true" onSubmit={handleSubmit} className='fixed  right-1/2 top-1/2 z-40 overflow-y-hidden translate-x-1/2 -translate-y-1/2 md:min-w-[50%] min-w-[80%] bg-white px-4 py-4'>
                     <div className='border border-yellow-500 font-sans my-4'>
                         <h1 className='bg-yellow-500 text-white text-lg px-2.5 py-1.5 text-start'>Update Work</h1>
